@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let s1 = "ab", s2 = "eidbaooo"
+        var lengthOfLongestSubstring = function (s1, s2) {
+            /**
+             * 解题思路：
+             * 1.滑动窗口，s2中的某子串如果与s1长度相同且包含同样数量的字母，则true，否则false
+            */
+            // let n = s1.length, m = s2.length;
+            // if (n > m) return false
+            // const cnt1 = new Array(26).fill(0);
+            // const cnt2 = new Array(26).fill(0);//26个字母
+            // let aCode = 'a'.charCodeAt();
+            // for (let i = 0; i < n; ++i) {
+            //     ++cnt1[s1[i].charCodeAt() - aCode];
+            //     ++cnt2[s2[i].charCodeAt() - aCode];
+            // }
+            // for (let i = n; i < m; ++i) {
+            //     ++cnt2[s2[i].charCodeAt() - aCode];
+            //     --cnt2[s2[i - n].charCodeAt() - aCode];
+            //     console.log(cnt1, cnt2);
+            //     if (cnt1.toString() === cnt2.toString()) {
+            //         return true;
+            //     }
+            // }
+            // return false;
+            /**
+            2.双指针
+            */
+            const n = s1.length, m = s2.length;
+            if (n > m) {
+                return false;
+            }
+            const cnt = new Array(26).fill(0);
+            for (let i = 0; i < n; ++i) {
+                --cnt[s1[i].charCodeAt() - 'a'.charCodeAt()];
+            }
+            console.log(cnt);
+            let left = 0;
+            for (let right = 0; right < m; ++right) {
+                const x = s2[right].charCodeAt() - 'a'.charCodeAt();
+                ++cnt[x];
+                while (cnt[x] > 0) {
+                    --cnt[s2[left].charCodeAt() - 'a'.charCodeAt()];
+                    ++left;
+                }
+                console.log(right, left);
+                if (right - left + 1 === n) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        console.log(lengthOfLongestSubstring(s1, s2));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let s = "cbaebabacd", p = "abc"
+        var findAnagrams = function (s, p) {
+            const res = []
+            const need = new Map()
+            for (let i = 0; i < p.length; i++) {
+                need.set(p[i], need.has(p[i]) ? need.get(p[i]) + 1 : 1)
+            }
+            console.log(need);
+            let left = 0, right = 0, valid = 0
+            const window = new Map()
+            while (right < s.length) {
+                const c = s[right]
+                right++
+                if (need.has(c)) {
+                    //如果c是p中存在的的字符
+                    window.set(c, window.has(c) ? window.get(c) + 1 : 1)
+                    // 当窗口中的字符数和滑动窗口中的字符数一致
+                    if (window.get(c) === need.get(c)) {
+                        // 有效字符自增
+                        valid++
+                    }
+                }
+                console.log(right, valid);
+                // 当滑动窗口的大小超出p串长度时 收缩窗口
+                while (right - left >= p.length) {
+                    // 有效字符和所需字符数一致 找到一条符合条件的子串
+                    if (valid === need.size) {
+                        res.push(left)
+                    }
+                    const d = s[left]
+                    left++
+
+                    console.log(left, right, c, d);
+                    // 如果离开窗口字符是所需字符
+                    if (need.has(d)) {
+                        // 如果离开字符数和所需字符数一致
+                        if (window.get(d) === need.get(d)) {
+                            // 有效字符减少一个
+                            valid--
+                        }
+                        // 更新滑动窗口中的字符数
+                        window.set(d, window.get(d) - 1)
+                    }
+                }
+            }
+            return res
+
+
+            // let res = [];
+            // let left = 0, len = p.length
+            // while ((left + len) <= s.length) {
+            //     let val = s.slice(left, left + len)
+            //     if (included(val)) {
+            //         res.push(left)
+            //     }
+            //     left++;
+            // }
+            // function included(a) {
+            //     let ex = p
+            //     for (i of a) {
+            //         let index = ex.indexOf(i)
+            //         if (index === -1) {
+            //             return false
+            //         } else {
+            //             ex = ex.split('');
+            //             ex.splice(index, 1);
+            //             ex = ex.join('')
+            //         }
+            //     }
+            //     return true
+
+            // }
+            // return res
+        };
+
+        console.log(findAnagrams(s, p));
+    </script>
+</body>
+
+</html>

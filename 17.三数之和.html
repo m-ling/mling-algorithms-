@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let nums = [0, 0, 0]
+        let result = []
+        var threeSumClosest = function (nums) {
+            let result = []
+            nums = nums.sort((a, b) => b - a)//降序
+            let len = nums.length
+            for (let i = 0; i < len - 2; i++) {
+                if (i > 0 && nums[i] === nums[i - 1]) continue; // 去掉重复项
+                let key = i, left = i + 1, right = len - 1
+                while (left < right) {
+                    let count = nums[key] + nums[left] + nums[right]
+                    if (count > 0) {
+                        left++;
+                    } else if (count < 0) {
+                        right--;
+                    } else {
+                        result.push([nums[key], nums[left], nums[right]])
+                        while (left < right && nums[right] === nums[right - 1]) right--;// 去重，直到指向不一样的数
+                        while (left < right && nums[left] === nums[left + 1]) left++;
+                        right--;//两边指针都移动
+                        left++;
+                    }
+                }
+            }
+            return result
+        };
+        console.log(threeSumClosest(nums));
+    </script>
+</body>
+
+</html>

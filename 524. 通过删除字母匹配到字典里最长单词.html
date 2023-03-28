@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let s = "abce", dictionary = ["abe", "abc"]
+        var findLongestWord = function (s, dictionary) {
+            let res = ''
+            dictionary.forEach(val => {
+                let len = s.length - 1, len1 = val.length - 1
+                while (len >= 0) {
+                    if (s[len] === val[len1]) {
+                        len1--;
+                        len--;
+                    } else {
+                        len--
+                    }
+                }
+                if (len1 === -1) {
+                    if ((res.length < val.length || (val.length === res.length && val < res))) {
+                        res = val
+                    }
+
+                }
+            })
+
+            return res
+        };
+        console.log(findLongestWord(s, dictionary));
+    </script>
+</body>
+
+</html>

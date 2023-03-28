@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let n = 5;
+        var generateMatrix = function (n) {
+            const matrix = new Array(n);
+            for (let i = 0; i < n; i++) {
+                //生成空的数组
+                matrix[i] = new Array(n);
+            }
+            console.log(matrix);
+            let num = 1;
+            let left = 0, right = n - 1, top = 0, bottom = n - 1;
+            while (num <= n * n) {
+                for (let i = left; i <= right; i++) {
+                    console.log('1*--', top, i, '=' + num);
+                    matrix[top][i] = num
+                    num++
+                }
+                top++;
+                for (let i = top; i <= bottom; i++) {
+                    console.log('2*--', i, right, '=' + num);
+                    matrix[i][right] = num
+                    num++;
+                }
+                right--;
+                for (let i = right; i >= left; i--) {
+                    console.log('3*--', bottom, i, '=' + num);
+                    matrix[bottom][i] = num
+                    num++;
+                }
+                bottom--;
+                for (let i = bottom; i >= top; i--) {
+                    console.log('4*--', i, left, '=' + num);
+                    matrix[i][left] = num
+                    num++;
+                }
+                left++;
+                console.log(num, 'left =' + left, 'right =' + right, " top =" + top, "bottom =" + bottom);
+            }
+            return matrix;
+        };
+        console.log(generateMatrix(n));
+    </script>
+</body>
+
+</html>

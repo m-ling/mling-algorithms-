@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+        var findRepeatedDnaSequences = function (s) {
+            let L = 0, R = 10, map = new Map, res = []
+            while (R <= s.length) {
+                let str = s.slice(L++, R++)
+                if (map.get(str) === 1) {
+                    res.push(str);
+                }
+                map.set(str, map.has(str) ? map.get(str) + 1 : 1);
+
+            }
+            return res
+
+        };
+        console.log(findRepeatedDnaSequences(s));
+    </script>
+</body>
+
+</html>

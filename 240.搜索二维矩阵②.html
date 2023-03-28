@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let matrix = [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30]], target = 14
+        var searchMatrix = function (matrix, target) {
+            let i = 0, j = matrix[0].length - 1, len = matrix.length
+            while (i < len && j >= 0) {
+                let val = matrix[i][j]
+                console.log(i, j, val);
+                if (val > target)
+                    j--;
+                else if (val === target) {
+                    return true
+                } else if (val < target) {
+                    i++;
+                }
+            }
+            return false
+        };
+        console.log(searchMatrix(matrix, target));
+    </script>
+</body>
+
+</html>
